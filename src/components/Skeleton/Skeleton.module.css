@@ -1,0 +1,37 @@
+.skeleton {
+  background: var(--border-color);
+  background: linear-gradient(
+    90deg,
+    var(--border-color) 0%,
+    var(--bg-card) 50%,
+    var(--border-color) 100%
+  );
+  background-size: 200% 100%;
+  animation: shine 1.5s infinite linear;
+}
+
+.text {
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+
+.circular {
+  border-radius: 50%;
+}
+
+.rectangular {
+  border-radius: var(--radius-md);
+}
+
+.rounded {
+  border-radius: var(--radius-lg);
+}
+
+@keyframes shine {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

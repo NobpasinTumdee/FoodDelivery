@@ -5,7 +5,9 @@ import { useAuth } from '../../contexts/AuthContext';
 import { api } from '../../services/api';
 import { Button } from '../../components/Button/Button';
 import { Card } from '../../components/Card/Card';
-import { formatCurrency } from '../../utils/formatters';
+import { Spinner } from '../../components/Spinner/Spinner';
+import { Skeleton } from '../../components/Skeleton/Skeleton';
+import { formatCurrency, formatDate } from '../../utils/formatters';
 import type { DeliveryRound } from '../../types/database';
 import styles from './CheckoutPage.module.css';
 
@@ -17,8 +19,10 @@ export const CheckoutPage: React.FC = () => {
   const [address, setAddress] = useState('');
   const [slipFile, setSlipFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [loadingRounds, setLoadingRounds] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [rounds, setRounds] = useState<DeliveryRound[]>([]);
+  const [selectedRoundId, setSelectedRoundId] = useState<number | ''>('');
   const [discount, setDiscount] = useState(0);
 
   useEffect(() => {
@@ -33,8 +37,13 @@ export const CheckoutPage: React.FC = () => {
       try {
         const rData = await api.getOpenDeliveryRounds();
         setRounds(rData);
+        if (rData.length > 0) {
+          setSelectedRoundId(rData[0].id);
+        }
       } catch (err) {
         console.error('Error fetching rounds', err);
+      } finally {
+        setLoadingRounds(false);
       }
     };
     fetchRounds();
@@ -73,7 +82,7 @@ export const CheckoutPage: React.FC = () => {
   };
 
   const netAmount = Math.max(0, totalAmount - discount);
-  const currentRound = rounds.length > 0 ? rounds[0] : null;
+  const currentRound = rounds.find(r => r.id === selectedRoundId);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -216,6 +225,28 @@ export const CheckoutPage: React.FC = () => {
           
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.inputGroup}>
+              <label>Delivery Round</label>
+              {loadingRounds ? (
+                <Skeleton height="40px" variant="rectangular" />
+              ) : rounds.length > 0 ? (
+                <select 
+                  className={styles.select}
+                  value={selectedRoundId}
+                  onChange={(e) => setSelectedRoundId(Number(e.target.value))}
+                  required
+                >
+                  {rounds.map(round => (
+                    <option key={round.id} value={round.id}>
+                      {round.round_name} - {formatDate(round.delivery_date)}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <div className={styles.errorAlert}>No delivery rounds available.</div>
+              )}
+            </div>
+
+            <div className={styles.inputGroup}>
               <label>Delivery Address</label>
               <textarea 
                 required
@@ -243,8 +274,8 @@ export const CheckoutPage: React.FC = () => {
               </div>
             </div>
 
-            <Button type="submit" fullWidth size="large" disabled={loading}>
-              {loading ? 'Processing...' : 'Confirm Order'}
+            <Button type="submit" fullWidth size="large" disabled={loading || !currentRound}>
+              {loading ? <><Spinner size="small" color="#fff" /> Processing...</> : 'Confirm Order'}
             </Button>
           </form>
         </Card>

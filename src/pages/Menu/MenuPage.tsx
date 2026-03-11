@@ -5,6 +5,8 @@ import { useCart } from '../../contexts/CartContext';
 import { Card } from '../../components/Card/Card';
 import { Button } from '../../components/Button/Button';
 import { Modal } from '../../components/Modal/Modal';
+import { Hero } from '../../components/Hero/Hero';
+import { Skeleton } from '../../components/Skeleton/Skeleton';
 import { formatCurrency, formatDate } from '../../utils/formatters';
 import styles from './MenuPage.module.css';
 
@@ -62,7 +64,19 @@ export const MenuPage: React.FC = () => {
     }
   };
 
-  if (loading) return <div className={styles.loading}>Loading Menu...</div>;
+  const renderSkeletons = () => (
+    <div className={styles.grid}>
+      {[...Array(4)].map((_, i) => (
+        <Card key={`skeleton-rice-${i}`} className={styles.productCard}>
+          <Skeleton height="150px" variant="rectangular" />
+          <div className={styles.productInfo} style={{ paddingTop: '16px' }}>
+            <Skeleton width="80%" height="20px" />
+            <Skeleton width="40%" height="20px" />
+          </div>
+        </Card>
+      ))}
+    </div>
+  );
 
   const riceProducts = products.filter(p => p.category === 'RICE');
   const snackProducts = products.filter(p => p.category === 'SNACK');
@@ -73,67 +87,77 @@ export const MenuPage: React.FC = () => {
   const currentRound = rounds.length > 0 ? rounds[0] : null;
 
   return (
-    <div className={styles.container}>
-      {currentRound ? (
-        <div className={styles.roundBanner}>
-          <h3>🚀 Now Open: {currentRound.round_name}</h3>
-          <p>Delivery Date: {formatDate(currentRound.delivery_date)}</p>
-        </div>
-      ) : (
-        <div className={styles.closedBanner}>
-          <h3>Currently Closed for Pre-orders</h3>
-        </div>
-      )}
+    <>
+      <Hero />
+      <div className={styles.container}>
+        {currentRound ? (
+          <div className={styles.roundBanner}>
+            <h3>🚀 Now Open: {currentRound.round_name}</h3>
+            <p>Delivery Date: {formatDate(currentRound.delivery_date)}</p>
+          </div>
+        ) : (
+          <div className={styles.closedBanner}>
+            <h3>Currently Closed for Pre-orders</h3>
+          </div>
+        )}
 
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>Main Dishes (RICE)</h2>
-        <div className={styles.grid}>
-          {riceProducts.map(product => (
-            <Card 
-              key={product.id} 
-              className={styles.productCard} 
-              onClick={() => handleProductClick(product)}
-            >
-              <div className={styles.productImagePlaceholder}>
-                {product.image_url ? (
-                   <img src={product.image_url} alt={product.name} />
-                ) : (
-                  <span>🥗</span>
-                )}
-              </div>
-              <div className={styles.productInfo}>
-                <h4>{product.name}</h4>
-                <p className={styles.price}>{formatCurrency(product.base_price)}</p>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
+        <section className={styles.section} id="menu-section">
+          <h2 className={styles.sectionTitle}>Main Dishes (RICE)</h2>
+          {loading ? (
+            renderSkeletons()
+          ) : (
+            <div className={styles.grid}>
+              {riceProducts.map(product => (
+                <Card 
+                  key={product.id} 
+                  className={styles.productCard} 
+                  onClick={() => handleProductClick(product)}
+                >
+                  <div className={styles.productImagePlaceholder}>
+                    {product.image_url ? (
+                       <img src={product.image_url} alt={product.name} />
+                    ) : (
+                      <span>🥗</span>
+                    )}
+                  </div>
+                  <div className={styles.productInfo}>
+                    <h4>{product.name}</h4>
+                    <p className={styles.price}>{formatCurrency(product.base_price)}</p>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          )}
+        </section>
 
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>Snacks & Desserts</h2>
-        <div className={styles.grid}>
-          {snackProducts.map(product => (
-            <Card 
-              key={product.id} 
-              className={styles.productCard} 
-              onClick={() => handleProductClick(product)}
-            >
-              <div className={styles.productImagePlaceholder}>
-                {product.image_url ? (
-                   <img src={product.image_url} alt={product.name} />
-                ) : (
-                  <span>🍰</span>
-                )}
-              </div>
-              <div className={styles.productInfo}>
-                <h4>{product.name}</h4>
-                <p className={styles.price}>{formatCurrency(product.base_price)}</p>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Snacks & Desserts</h2>
+          {loading ? (
+            renderSkeletons()
+          ) : (
+            <div className={styles.grid}>
+              {snackProducts.map(product => (
+                <Card 
+                  key={product.id} 
+                  className={styles.productCard} 
+                  onClick={() => handleProductClick(product)}
+                >
+                  <div className={styles.productImagePlaceholder}>
+                    {product.image_url ? (
+                       <img src={product.image_url} alt={product.name} />
+                    ) : (
+                      <span>🍰</span>
+                    )}
+                  </div>
+                  <div className={styles.productInfo}>
+                    <h4>{product.name}</h4>
+                    <p className={styles.price}>{formatCurrency(product.base_price)}</p>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          )}
+        </section>
 
       {/* Add to Cart Modal */}
       <Modal 
@@ -196,6 +220,7 @@ export const MenuPage: React.FC = () => {
           </div>
         )}
       </Modal>
-    </div>
+      </div>
+    </>
   );
 };

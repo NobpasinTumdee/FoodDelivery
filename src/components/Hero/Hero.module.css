@@ -1,0 +1,123 @@
+.hero {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl) 0 4rem 0;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 4rem 0 6rem 0;
+  }
+}
+
+.content {
+  flex: 1;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .content {
+    text-align: left;
+  }
+}
+
+.badge {
+  display: inline-block;
+  background-color: var(--border-color);
+  color: var(--text-secondary);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 3.5rem;
+  }
+}
+
+.highlight {
+  color: var(--accent-color);
+}
+
+.subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  max-width: 480px;
+  margin: 0 auto var(--spacing-lg) auto;
+}
+
+@media (min-width: 768px) {
+  .subtitle {
+    margin: 0 0 var(--spacing-xl) 0;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .actions {
+    justify-content: flex-start;
+  }
+}
+
+.primaryBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-size-lg);
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+}
+
+.imageContainer {
+  flex: 1;
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+}
+
+.image {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  height: 300px;
+  object-fit: cover;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .image {
+    height: 400px;
+  }
+}
+
+.glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
+  opacity: 0.15;
+  filter: blur(40px);
+  z-index: -1;
+  border-radius: 50%;
+}

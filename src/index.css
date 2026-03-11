@@ -43,7 +43,7 @@ img {
 main {
   flex: 1;
   padding: var(--spacing-md);
-  max-width: 600px; /* Mobile-first approach, max-width centers content on larger screens */
+  max-width: 1000px; /* Mobile-first approach, max-width centers content on larger screens */
   margin: 0 auto;
   width: 100%;
 }

@@ -5,6 +5,7 @@ import { api } from '../../services/api';
 import type { DeliveryRound } from '../../types/database';
 import { Button } from '../../components/Button/Button';
 import { Card } from '../../components/Card/Card';
+import { Modal } from '../../components/Modal/Modal';
 import { formatCurrency, formatDate } from '../../utils/formatters';
 import styles from './AdminDashboard.module.css';
 
@@ -16,6 +17,7 @@ export const AdminDashboard: React.FC = () => {
   const [selectedRoundId, setSelectedRoundId] = useState<number | null>(null);
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [slipModalUrl, setSlipModalUrl] = useState<string | null>(null);
 
   useEffect(() => {
     if (profile && profile.role !== 'admin') {
@@ -203,7 +205,12 @@ export const AdminDashboard: React.FC = () => {
                       <td className={styles.addressCell}>{order.delivery_address}</td>
                       <td>
                         {order.payment_slip_url ? (
-                          <a href={order.payment_slip_url} target="_blank" rel="noreferrer" className={styles.slipLink}>View Slip</a>
+                          <button 
+                            className={styles.slipLinkBtn}
+                            onClick={() => setSlipModalUrl(order.payment_slip_url)}
+                          >
+                            View Slip
+                          </button>
                         ) : 'No Slip'}
                       </td>
                       <td>{formatCurrency(Number(order.net_amount))}</td>
@@ -231,6 +238,18 @@ export const AdminDashboard: React.FC = () => {
           </Card>
         </div>
       </div>
+
+      <Modal 
+        isOpen={!!slipModalUrl} 
+        onClose={() => setSlipModalUrl(null)}
+        title="Payment Slip"
+      >
+        {slipModalUrl && (
+          <div className={styles.slipViewer}>
+            <img src={slipModalUrl} alt="Payment Slip" />
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };

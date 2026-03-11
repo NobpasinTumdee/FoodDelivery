@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
-import { Navbar } from './components/Navbar/Navbar';
+import { RootLayout } from './layout';
 
 import { AuthPage } from './pages/Auth/AuthPage';
 import { MenuPage } from './pages/Menu/MenuPage';
@@ -21,58 +21,54 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode, requireAdmin?: boole
   return <>{children}</>;
 };
 
-const AppContent: React.FC = () => {
-  return (
-    <>
-      <Navbar />
-      <main>
-        <Routes>
-          <Route path="/login" element={<AuthPage />} />
-          <Route path="/register" element={<AuthPage />} />
-          
-          <Route path="/" element={<MenuPage />} />
-          
-          <Route 
-            path="/profile" 
-            element={
-              <ProtectedRoute>
-                <ProfilePage />
-              </ProtectedRoute>
-            } 
-          />
-          
-          <Route 
-            path="/checkout" 
-            element={
-              <ProtectedRoute>
-                <CheckoutPage />
-              </ProtectedRoute>
-            } 
-          />
-          
-          <Route 
-            path="/admin" 
-            element={
-              <ProtectedRoute requireAdmin>
-                <AdminDashboard />
-              </ProtectedRoute>
-            } 
-          />
-        </Routes>
-      </main>
-    </>
-  );
-};
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    errorElement: <h1>Not found this page...</h1>,
+    children: [
+      { index: true, element: <MenuPage /> },
+      { path: "login", element: <AuthPage /> },
+      { path: "register", element: <AuthPage /> },
+      { 
+        path: "profile", 
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        ) 
+      },
+      { 
+        path: "checkout", 
+        element: (
+          <ProtectedRoute>
+            <CheckoutPage />
+          </ProtectedRoute>
+        ) 
+      },
+      { 
+        path: "admin", 
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminDashboard />
+          </ProtectedRoute>
+        ) 
+      }
+    ]
+  }
+]);
+
+import { ThemeProvider } from './contexts/ThemeContext';
 
 const App: React.FC = () => {
   return (
-    <Router>
+    <ThemeProvider>
       <AuthProvider>
         <CartProvider>
-          <AppContent />
+          <RouterProvider router={router} />
         </CartProvider>
       </AuthProvider>
-    </Router>
+    </ThemeProvider>
   );
 };
 

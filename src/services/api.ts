@@ -115,6 +115,25 @@ export const api = {
     return order;
   },
 
+  async getCustomerOrders(customerId: string) {
+    const { data, error } = await supabase
+      .from('orders')
+      .select(`
+        *,
+        delivery_rounds(round_name, delivery_date),
+        order_items(
+          *,
+          products(name),
+          order_item_addons(addon_name, addon_price)
+        )
+      `)
+      .eq('customer_id', customerId)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+  },
+
   // Admin
   async getOrdersForRound(roundId: number) {
     const { data, error } = await supabase

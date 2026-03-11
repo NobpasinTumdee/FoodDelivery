@@ -67,7 +67,7 @@
 }
 
 .summaryFooter {
-  background-color: #fafafa;
+  background-color: var(--border-color);
   padding: var(--spacing-md);
   border-radius: var(--radius-md);
   display: flex;
@@ -79,6 +79,7 @@
   display: flex;
   justify-content: space-between;
   font-size: var(--font-size-base);
+  background-color: transparent;
 }
 
 .discountText {
@@ -112,17 +113,21 @@
 }
 
 .inputGroup input,
-.inputGroup textarea {
-  padding: var(--spacing-sm);
+.inputGroup textarea,
+.select {
+  width: 100%;
+  padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   font-family: inherit;
-  outline: none;
-  font-size: var(--font-size-base);
+  font-size: 1rem;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  outline: none; /* Kept from original */
 }
 
 .paymentSection {
-  background-color: #f9f9f9;
+  background-color: var(--border-color);
   padding: var(--spacing-md);
   border-radius: var(--radius-md);
   border: 1px dashed var(--border-color);
