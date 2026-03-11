@@ -1,0 +1,18 @@
+src/components/Button/Button.tsx(1,17): error TS1484: 'ButtonHTMLAttributes' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/contexts/CartContext.tsx(2,10): error TS1484: 'Product' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/contexts/CartContext.tsx(2,19): error TS1484: 'Addon' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/Checkout/CheckoutPage.tsx(9,10): error TS1484: 'DeliveryRound' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/Menu/MenuPage.tsx(3,10): error TS1484: 'Product' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/Menu/MenuPage.tsx(3,19): error TS1484: 'Addon' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/pages/Menu/MenuPage.tsx(3,26): error TS1484: 'DeliveryRound' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/services/api.ts(2,10): error TS1484: 'Product' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/services/api.ts(2,19): error TS1484: 'Addon' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/services/api.ts(2,26): error TS1484: 'DeliveryRound' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/services/api.ts(2,41): error TS1484: 'Customer' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/services/api.ts(2,51): error TS1484: 'Order' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/services/api.ts(2,58): error TS1484: 'OrderItem' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/services/api.ts(2,69): error TS1484: 'OrderItemAddon' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/utils/formatters.ts(10,35): error TS6133: 'points' is declared but its value is never read.
+src/utils/formatters.ts(10,51): error TS6133: 'baseTotal' is declared but its value is never read.
+src/utils/formatters.ts(10,70): error TS6133: 'boxCount' is declared but its value is never read.
+src/utils/formatters.ts(10,88): error TS6133: 'boxPrice' is declared but its value is never read.

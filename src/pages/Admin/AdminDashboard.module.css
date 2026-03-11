@@ -1,0 +1,125 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.roundSelector {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.roundSelector select {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+}
+
+@media (min-width: 1024px) {
+  .dashboardGrid {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.summarySection, .ordersSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.summaryStat {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-lg);
+}
+
+.salesText {
+  color: var(--success-color);
+}
+
+.divider {
+  border: 0;
+  height: 1px;
+  background-color: var(--border-color);
+  margin: var(--spacing-md) 0;
+}
+
+.prepareList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.prepareList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+}
+
+.emptyText {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.ordersTableContainer {
+  overflow-x: auto;
+}
+
+.ordersTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ordersTable th, .ordersTable td {
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.addressCell {
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.slipLink {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+.statusSelect {
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  font-weight: 600;
+}
+
+.pending { color: var(--warning-color); }
+.confirmed { color: #3b82f6; } /* blue */
+.delivering { color: #8b5cf6; } /* purple */
+.completed { color: var(--success-color); }
+.cancelled { color: var(--danger-color); }

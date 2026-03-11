@@ -1,0 +1,148 @@
+.container {
+  display: flex;
+  gap: var(--spacing-xl);
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.left, .right {
+  flex: 1;
+}
+
+.emptyContainer {
+  text-align: center;
+  padding: var(--spacing-xl);
+}
+
+.itemList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.cartItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.itemInfo h4 {
+  margin: 0;
+  font-size: var(--font-size-base);
+}
+
+.addonsList {
+  margin: var(--spacing-xs) 0;
+  padding-left: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.itemTotal {
+  font-weight: 600;
+  margin-top: var(--spacing-xs);
+  color: var(--accent-color);
+}
+
+.itemActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-sm);
+}
+
+.qtyControls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.summaryFooter {
+  background-color: #fafafa;
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-base);
+}
+
+.discountText {
+  color: var(--success-color);
+  font-weight: bold;
+}
+
+.netAmount {
+  font-size: var(--font-size-xl);
+  font-weight: bold;
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--spacing-sm);
+  color: var(--accent-color);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.inputGroup label {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.inputGroup input,
+.inputGroup textarea {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  outline: none;
+  font-size: var(--font-size-base);
+}
+
+.paymentSection {
+  background-color: #f9f9f9;
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-color);
+}
+
+.qrPlaceholder {
+  height: 200px;
+  background-color: #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--spacing-md) 0;
+  color: var(--text-secondary);
+}
+
+.errorAlert {
+  background-color: #fee2e2;
+  color: var(--danger-color);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
